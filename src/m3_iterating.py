@@ -242,12 +242,12 @@ def count_short_ones(seq_of_lists):
     #   Note that you should write its TEST function first (above).
     # ------------------------------------------------------------------
     count = 0
-    for x in seq_of_lists:
-        if len(x) < 3:
+    for k in range(len(seq_of_lists)):
+        if len(seq_of_lists[k]) < 3:
             count += 1
     return count
-    # for k in range[len(seq_of_lists)]:
-    #     if len(k) < 3:
+    # for x in seq_of_lists:
+    #     if len(x) < 3:
     #         count += 1
     # return count
 

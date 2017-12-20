@@ -19,11 +19,19 @@ import math
 
 def main():
     """ Calls the   TEST   functions in this module. """
-    run_test_sum_sequence()
-    run_test_count_items_bigger_than()
-    run_test_count_positive_sines()
-    run_test_sum_first_n()
+    quick_play()
+    # run_test_sum_sequence()
+    # run_test_count_items_bigger_than()
+    # run_test_count_positive_sines()
+    # run_test_sum_first_n()
+    #
 
+
+def quick_play():
+    sequence11 = []
+    for k in range(100):
+        sequence11.append(random.randint(-10, 11))
+        print(sequence11[k])
 
 def run_test_sum_sequence():
     """ Tests the   sum_sequence   function. """
@@ -94,6 +102,7 @@ def run_test_sum_sequence():
     sequence3 = []
     for _ in range(10000):
         sequence3.append(random.randrange(-10, 11))
+
 
     oracle_answer = builtins.sum(sequence3)
     actual_answer = sum_sequence(sequence3)
