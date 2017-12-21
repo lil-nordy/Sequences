@@ -15,23 +15,17 @@ Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
 import random
 import builtins  # Never necessary, but here to make a point about SUM
 import math
+import config
 
 
 def main():
     """ Calls the   TEST   functions in this module. """
-    quick_play()
-    # run_test_sum_sequence()
-    # run_test_count_items_bigger_than()
-    # run_test_count_positive_sines()
-    # run_test_sum_first_n()
-    #
+    run_test_sum_sequence()
+    run_test_count_items_bigger_than()
+    run_test_count_positive_sines()
+    run_test_sum_first_n()
+    sanity_check()
 
-
-def quick_play():
-    sequence11 = []
-    for k in range(100):
-        sequence11.append(random.randint(-10, 11))
-        print(sequence11[k])
 
 def run_test_sum_sequence():
     """ Tests the   sum_sequence   function. """
@@ -41,7 +35,7 @@ def run_test_sum_sequence():
     print('--------------------------------------------------')
 
     # ------------------------------------------------------------------
-    # TODO: 2. READ the COMMENTS and CODE in this function,
+    # DONE: 2. READ the COMMENTS and CODE in this function,
     #  asking questions as needed.
     #
     #   When you believe that you understand:
@@ -102,7 +96,6 @@ def run_test_sum_sequence():
     sequence3 = []
     for _ in range(10000):
         sequence3.append(random.randrange(-10, 11))
-
 
     oracle_answer = builtins.sum(sequence3)
     actual_answer = sum_sequence(sequence3)
@@ -186,6 +179,7 @@ def run_test_sum_sequence():
     actual_sum = sum_sequence(sequence6)
     actual_average = sum_sequence(sequence6) / 10000
 
+
     print()
     print('Test 6: Using the following RANDOMLY generated sequence:')
     print('   ', sequence6)
@@ -197,6 +191,44 @@ def run_test_sum_sequence():
     print('    Sum:     ', actual_sum)
     print('    Average: ', actual_average)
     print('  where "close" for the sum means absolute value < about 600')
+
+    print('---------------------------------------')
+    sequence42 = []  # Next lines make a sequence of 10000 RANDOM numbers
+    for _ in range(10000):
+        sequence42.append(random.randrange(-10, 11))
+    print('Test 42: Using the following RANDOMLY generated sequence:')
+    print('   ', sequence42)
+    actual_sum = sum_sequence(sequence42)
+    config.rando_calr.append(sum_sequence(sequence42))
+    actual_average = sum_sequence(sequence42) / 10000
+    config.average_same.append(actual_average)
+
+    sequence43 = []  # Next lines make a sequence of 10000 RANDOM numbers
+    for _ in range(10000):
+        sequence43.append(random.randrange(-10, 11))
+    config.rando_calr.append(sum_sequence(sequence43))
+    average = sum_sequence(sequence43) / 10000
+    config.average_same.append(average)
+
+    sequence44 = []  # Next lines make a sequence of 10000 RANDOM numbers
+    for _ in range(10000):
+        sequence44.append(random.randrange(-10, 11))
+    config.rando_calr.append(sum_sequence(sequence43))
+    average = sum_sequence(sequence44) / 10000
+    config.average_same.append(average)
+
+    sequence45 = []  # Next lines make a sequence of 10000 RANDOM numbers
+    for _ in range(10000):
+        sequence45.append(random.randrange(-10, 11))
+    config.rando_calr.append(sum_sequence(sequence43))
+    average = sum_sequence(sequence45) / 10000
+    config.average_same.append(average)
+    print()
+    print('RANDO CALR', config.rando_calr)
+    print('actual average:', config.average_same)
+
+    # Todo: 11
+    # Figure out how to get these global values saved *each time* you run the function!
 
 
 def sum_sequence(sequence):
@@ -212,7 +244,7 @@ def sum_sequence(sequence):
       :type sequence: list or tuple (of integers)
     """
     # ------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # DONE: 3. Implement and test this function.
     #          Tests have been written for you (above).
     #
     # RESTRICTION:
@@ -221,12 +253,15 @@ def sum_sequence(sequence):
     #      -- The TESTING code above does use   built_ins.sum
     #         as an ORACLE in TESTING this function, however.
     # ------------------------------------------------------------------
-
+    sum_total = 0
+    for k in range(len(sequence)):
+        sum_total += sequence[k]
+    return sum_total
 
 def run_test_count_items_bigger_than():
     """ Tests the   count_items_bigger_than   function. """
     # ------------------------------------------------------------------
-    # TODO: 4. Implement this TEST function.
+    # DONE: 4. Implement this TEST function.
     #   It TESTS the  count_items_bigger_than  function defined below.
     #   Include at least ** 2 ** ADDITIONAL tests.
     #
@@ -352,6 +387,30 @@ def run_test_count_items_bigger_than():
 
     # TO DO 4 (continued):  Add your 2 ADDITIONAL tests here:
 
+    # Nate Test 9
+    print('----------------------------')
+    sequence = [1, 2, 3, 4, 5]
+    threshold = 3
+    expected = 2
+    result = count_items_bigger_than(sequence, threshold)
+    print('Nate Test 9:  ')
+    print('number of items:', len(sequence))
+    print('expected:', expected)
+    print('result:  ', result)
+
+    # Nate Test 10
+    print('----------------------------')
+    sequence = []
+    for _ in range(10000):
+        sequence.append(random.randrange(5, 50))
+    threshold = 4
+    expected = 10000
+    result = count_items_bigger_than(sequence, threshold)
+    print('Nate Test 10:  ')
+    print('number of items:', len(sequence))
+    print('expected:', expected)
+    print('result:  ', result)
+
 
 def count_items_bigger_than(numbers, threshold):
     """
@@ -387,15 +446,36 @@ def count_items_bigger_than(numbers, threshold):
       :type threshold: float
     """
     # ------------------------------------------------------------------
-    # TODO: 5. Implement and test this function.
+    # DONE: 5. Implement and test this function.
     #   Note that you should write its TEST function first (above).
     # ------------------------------------------------------------------
+    count = 0
+    for k in range(len(numbers)):
+        if k > threshold:
+            count += 1
+    return count
+
+
+def sanity_check():
+    print('----------------------------')
+    sequence = []
+    count = 0
+    for _ in range(10000):
+        sequence.append(random.randrange(5, 50, 5))
+    for k in range(len(sequence)):
+        if sequence[k] < 5:
+            count += 1
+    print('sanity check: \n', sequence)
+    if count > 0:
+        print('You\'re either insane or missing critical information.')
+    else:
+        print('It seems like you know how this random thing works, but it is behaving strangly in your test. You seem to be misunderstanding something critical.')
 
 
 def run_test_count_positive_sines():
     """ Tests the   count_positive_sines   function. """
     # ------------------------------------------------------------------
-    # TODO: 6. Implement this TEST function.
+    # DONE: 6. Implement this TEST function.
     #   It TESTS the  count_positive_sines  function defined below.
     #   Include at least ** 1 ** ADDITIONAL test beyond what we supplied.
     #
@@ -491,6 +571,12 @@ def run_test_count_positive_sines():
     print('        actual:  ', actual)
 
     # TO DO 6 (continued):  Add your 1 ADDITIONAL test here:
+    print('----------------------')
+    sequence = [1]
+    expected = 1
+    actual = count_positive_sines(sequence)
+    print('Nate Test 11 expected:', expected)
+    print('             actual:  ', actual)
 
 
 def count_positive_sines(numbers):
@@ -517,15 +603,19 @@ def count_positive_sines(numbers):
       :type sequence: list or tuple (of numbers)
     """
     # ------------------------------------------------------------------
-    # TODO: 7. Implement and test this function.
+    # done: 7. Implement and test this function.
     #   Note that you should write its TEST function first (above).
     # ------------------------------------------------------------------
-
+    count = 0
+    for k in range(len(numbers)):
+        if math.sin(numbers[k]) > 0:
+            count += 1
+    return count
 
 def run_test_sum_first_n():
     """ Tests the   sum_first_n   function. """
     # ------------------------------------------------------------------
-    # TODO: 8. Implement this TEST function.
+    # done: 8. Implement this TEST function.
     #   It TESTS the  sum_first_n  function defined below.
     #   Include at least ** 2 ** ADDITIONAL tests.
     #
@@ -595,6 +685,12 @@ def run_test_sum_first_n():
     print('       actual:  ', actual)
 
     # TO DO 8 (continued):  Add your 2 ADDITIONAL tests here:
+    sequence = [1, 2, 3, 4, 5, 6]
+    expected = sum_first_n(sequence, 5)
+    actual = 15
+    print()
+    print('Test 8 expected:', expected)
+    print('       actual:  ', actual)
 
 
 def sum_first_n(numbers, n):
@@ -619,7 +715,7 @@ def sum_first_n(numbers, n):
       :type n: int
     """
     # ------------------------------------------------------------------
-    # TODO: 9. Implement and test this function.
+    # done: 9. Implement and test this function.
     #          Tests have been written for you (above).
     #
     # RESTRICTION:
@@ -628,8 +724,13 @@ def sum_first_n(numbers, n):
     #      -- The TESTING code above does use   built_ins.sum
     #         as an ORACLE in TESTING this function, however.
     # ------------------------------------------------------------------
-
+    sum_total = 0
+    for k in range(n):
+        sum_total += numbers[k]
+    return sum_total
 # ----------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # ----------------------------------------------------------------------
+
+
 main()
