@@ -52,7 +52,7 @@ def main():
     # run_test_print_items_at_odd_indices(sequence1, sequence2, sequence3, sequence4)
     # run_test_print_items_in_second_half(sequence1, sequence2, sequence3, sequence4)
     # run_test_print_items_that_are_bigger_than_5()  # Uses different sequences
-#     run_test_print_items_that_are_strings(sequence1, sequence2, sequence3, sequence4)
+    run_test_print_items_that_are_strings(sequence1, sequence2, sequence3, sequence4)
 #     run_test_print_items_that_are_odd_integers(sequence1, sequence2, sequence3, sequence4)
 
 
@@ -487,7 +487,7 @@ def print_items_that_are_strings(sequence):
       bone is at index 4
     """
     # ------------------------------------------------------------------
-    # TODO: 8. Implement and test this function.
+    # done: 8. Implement and test this function.
     #
     # IMPORTANT:
     #   -- A string is, by definition, an object whose type is   str.
@@ -499,6 +499,9 @@ def print_items_that_are_strings(sequence):
     #
     #        Note that   str   has NO quotes surrounding it.
     # ------------------------------------------------------------------
+    for k in range(len(sequence)):
+        if type(sequence[k]) == str:
+            print('{} is at index {}'.format(sequence[k], k))
 
 
 # ----------------------------------------------------------------------
@@ -518,11 +521,17 @@ def print_items_that_are_odd_integers(sequence):
       33 is at index 5
     """
     # ------------------------------------------------------------------
-    # TODO: 9. Implement and test this function.
+    # done: 9. Implement and test this function.
     #
     # IMPORTANT:  The  type  function returns  int  if its argument
     #   is an integer.  Note that   int   has NO quotes surrounding it.
     # ------------------------------------------------------------------
+    for k in range(len(sequence)):
+        if type(sequence[k]) == int & sequence[k] % 2 != 0:
+            print('{} is at index {}'.format(sequence[k], k))
+        # my peer Aman did this a bit differently:
+        # if sequence[k].__class__ == int & sequence[k] % 2 !=0:
+        #     print('{} is at index {}'.format(sequence[k], k))
 
 # ----------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
